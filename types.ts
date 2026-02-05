@@ -41,11 +41,18 @@ export interface WarningTemplate {
 export interface SymbolConstraint {
   id: string;
   name: string;
-  minWidth: number;
+  minWidth?: number;
+  minHeight?: number;
+  minDiameter?: number;
+  dimensionType: 'width' | 'height' | 'diameter';
   aspectRatio: string;
   regulatory: string;
   icon: string;
-  tag: string;
+  tags: string[];
+  primaryTag: string; // The one displayed in the top right (e.g. EU MANDATORY)
+  symbolColor: string;
+  bgColor: string;
+  vectorSvg?: string;
 }
 
 export interface Language {
