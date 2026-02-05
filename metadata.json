@@ -1,0 +1,7 @@
+{
+  "name": "HTI Artwork Generator",
+  "description": "A high-end artwork management tool for HTI Toys, handling global project tracking and a multilingual compliance database for warning texts and symbols.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
