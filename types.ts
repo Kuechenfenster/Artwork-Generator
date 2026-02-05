@@ -23,19 +23,24 @@ export interface TeamMember {
   avatar: string;
 }
 
+export interface ChangeEntry {
+  date: string;
+  user: string;
+  remark: string;
+}
+
 export interface WarningTemplate {
   id: string;
   name: string;
   subType: string;
   en: string;
-  zh_cn: string;
-  fr: string;
-  de: string;
-  es: string;
+  translations: Record<string, string>; // languageId -> translatedText
   status: 'APPROVED' | 'PENDING QA' | 'DRAFT';
   category: string;
   tags: string[];
   linkedSymbolIds?: string[];
+  referenceSource: string;
+  history: ChangeEntry[];
 }
 
 export interface SymbolConstraint {
