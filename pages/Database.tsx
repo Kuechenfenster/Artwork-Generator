@@ -60,7 +60,7 @@ const Database: React.FC = () => {
       },
       status: 'APPROVED', 
       category: 'GENERAL',
-      tags: ['#preschool', 'safety', 'choking'],
+      tags: ['#PRESCHOOL', 'SAFETY', 'CHOKING'],
       linkedSymbolIds: ['S1', 'S2'],
       referenceSource: 'EN 71-1:2014+A1:2018 Toy Safety Standard',
       history: [
@@ -79,7 +79,7 @@ const Database: React.FC = () => {
       },
       status: 'PENDING QA', 
       category: 'ACTIVITY',
-      tags: ['#scooter', 'parent supervision'],
+      tags: ['#SCOOTER', 'PARENT SUPERVISION'],
       linkedSymbolIds: [],
       referenceSource: 'ISO 8124-1:2022',
       history: [{ date: '2023-11-01 14:00', user: 'James Harrison', remark: 'Drafting cord danger warning.' }]
@@ -113,7 +113,7 @@ const Database: React.FC = () => {
       translations: {},
       status: 'DRAFT',
       category: 'GENERAL',
-      tags: ['#new'],
+      tags: ['#NEW'],
       linkedSymbolIds: [],
       referenceSource: 'N/A',
       history: [{ date: new Date().toLocaleString(), user: 'James Harrison', remark: 'Created new template record.' }]
@@ -134,7 +134,7 @@ const Database: React.FC = () => {
       regulatory: 'New Regulatory Standard',
       icon: 'category',
       primaryTag: 'NEW',
-      tags: ['#draft'],
+      tags: ['#DRAFT'],
       symbolColor: '#ffffff',
       bgColor: '#1a2a32'
     };
@@ -185,7 +185,7 @@ const Database: React.FC = () => {
 
   const addTagToTemplate = () => {
     if (!editingTemplate || !newTagInput.trim()) return;
-    const tag = newTagInput.startsWith('#') ? newTagInput : `#${newTagInput}`;
+    const tag = newTagInput.startsWith('#') ? newTagInput.toUpperCase() : `#${newTagInput.toUpperCase()}`;
     if (!editingTemplate.tags.includes(tag)) {
       updateTemplateField('tags', [...editingTemplate.tags, tag]);
     }
@@ -214,7 +214,7 @@ const Database: React.FC = () => {
 
   const addTagToSymbol = () => {
     if (!editingSymbol || !newTagInput.trim()) return;
-    const tag = newTagInput.startsWith('#') ? newTagInput : `#${newTagInput}`;
+    const tag = newTagInput.startsWith('#') ? newTagInput.toUpperCase() : `#${newTagInput.toUpperCase()}`;
     if (!editingSymbol.tags.includes(tag)) {
       updateSymbolField('tags', [...editingSymbol.tags, tag]);
     }
@@ -226,7 +226,6 @@ const Database: React.FC = () => {
     updateSymbolField('tags', editingSymbol.tags.filter(t => t !== tagToRemove));
   };
 
-  // Fixed missing function error by defining addNewLanguageToSystem
   const addNewLanguageToSystem = () => {
     if (!newLangName.trim()) return;
     const id = newLangName.toLowerCase().replace(/\s+/g, '-');
@@ -237,7 +236,7 @@ const Database: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col p-6 gap-6 max-w-[1600px] mx-auto w-full h-full overflow-hidden">
+    <div className="flex-1 flex flex-col p-6 gap-6 max-w-[1600px] mx-auto w-full h-full overflow-hidden transition-colors duration-200">
       {/* Page Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 shrink-0">
         <div className="flex flex-col gap-1">
@@ -252,7 +251,7 @@ const Database: React.FC = () => {
           <button onClick={createNewTemplate} className="px-6 py-2.5 bg-primary text-white text-xs font-black rounded-xl shadow-xl shadow-primary/30 hover:brightness-110 active:scale-95 transition-all uppercase tracking-[0.15em] flex items-center gap-3">
             <span className="material-symbols-outlined text-lg">add_box</span> New Template
           </button>
-          <button onClick={createNewSymbol} className="px-6 py-2.5 bg-[#1a2a32] text-slate-300 border border-[#2d4552] text-xs font-black rounded-xl hover:bg-[#233c48] hover:text-white transition-all uppercase tracking-[0.15em] flex items-center gap-3">
+          <button onClick={createNewSymbol} className="px-6 py-2.5 bg-slate-100 dark:bg-[#1a2a32] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[#2d4552] text-xs font-black rounded-xl hover:bg-slate-200 dark:hover:bg-[#233c48] hover:text-slate-900 dark:hover:text-white transition-all uppercase tracking-[0.15em] flex items-center gap-3">
             <span className="material-symbols-outlined text-lg">category</span> New Symbol
           </button>
         </div>
@@ -269,7 +268,7 @@ const Database: React.FC = () => {
         <div className="py-2 flex items-center gap-4">
           <div className="relative min-w-[240px]">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-            <input type="text" placeholder="Search master database..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full bg-white dark:bg-[#111c22] border border-slate-200 dark:border-[#325567] rounded-lg pl-9 pr-4 py-2 text-[10px] font-bold focus:ring-primary focus:border-primary transition-all text-slate-700 dark:text-white uppercase tracking-widest" />
+            <input type="text" placeholder="Search master database..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full bg-white dark:bg-[#111c22] border border-slate-200 dark:border-[#325567] rounded-lg pl-9 pr-4 py-2 text-[10px] font-bold focus:ring-primary focus:border-primary transition-all text-slate-700 dark:text-white uppercase tracking-widest outline-none" />
           </div>
         </div>
       </div>
@@ -279,7 +278,7 @@ const Database: React.FC = () => {
         {activeTab === 'text' && (
           <div className="h-full flex flex-col bg-white dark:bg-[#111c22] rounded-xl border border-slate-200 dark:border-[#325567] shadow-sm animate-in fade-in duration-300 overflow-auto custom-scrollbar">
             <table className="w-full text-left border-collapse min-w-[1200px]">
-              <thead className="sticky top-0 bg-slate-100 dark:bg-[#192b33] border-b border-slate-200 dark:border-[#325567] z-20">
+              <thead className="sticky top-0 bg-slate-50 dark:bg-[#192b33] border-b border-slate-200 dark:border-[#325567] z-20">
                 <tr>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest w-24">ID</th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-500 uppercase tracking-widest">Name & Subtype</th>
@@ -298,7 +297,7 @@ const Database: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                        <div className="flex flex-wrap gap-1">
-                          {t.tags.map(tag => <span key={tag} className="text-[9px] font-bold text-slate-400 bg-slate-100 dark:bg-[#1a2a32] px-1.5 py-0.5 rounded border border-[#325567]">{tag}</span>)}
+                          {t.tags.map(tag => <span key={tag} className="text-[9px] font-bold text-slate-400 bg-slate-100 dark:bg-[#1a2a32] px-1.5 py-0.5 rounded border border-slate-200 dark:border-[#325567]">{tag}</span>)}
                        </div>
                     </td>
                     <td className="px-6 py-4 text-xs text-slate-600 dark:text-[#92b7c9] truncate max-w-xs">{t.en}</td>
@@ -315,49 +314,47 @@ const Database: React.FC = () => {
         {activeTab === 'symbols' && (
           <div className="h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 overflow-y-auto custom-scrollbar pb-10">
             {symbols.map(s => (
-              <div key={s.id} onClick={() => setEditingSymbol(s)} className="bg-[#111c22] rounded-2xl border border-[#2d4552] p-6 flex flex-col gap-6 hover:border-primary transition-all group shadow-xl h-fit cursor-pointer">
+              <div key={s.id} onClick={() => setEditingSymbol(s)} className="bg-white dark:bg-[#111c22] rounded-2xl border border-slate-200 dark:border-[#2d4552] p-6 flex flex-col gap-6 hover:border-primary transition-all group shadow-sm dark:shadow-xl h-fit cursor-pointer">
                  <div className="flex items-start justify-between">
-                    <div className="size-14 rounded-xl flex items-center justify-center border border-[#2d4552] shadow-inner" style={{ backgroundColor: s.bgColor }}>
+                    <div className="size-14 rounded-xl flex items-center justify-center border border-slate-100 dark:border-[#2d4552] shadow-inner" style={{ backgroundColor: s.bgColor }}>
                       {s.vectorSvg ? <img src={s.vectorSvg} alt={s.name} className="size-8 object-contain" /> : <span className="material-symbols-outlined text-3xl" style={{ color: s.symbolColor }}>{s.icon}</span>}
                     </div>
-                    <span className="text-[9px] font-black text-slate-400 bg-[#1a2a32] border border-[#2d4552] px-2.5 py-1 rounded-md uppercase tracking-widest">{s.primaryTag}</span>
+                    <span className="text-[9px] font-black text-slate-400 bg-slate-50 dark:bg-[#1a2a32] border border-slate-100 dark:border-[#2d4552] px-2.5 py-1 rounded-md uppercase tracking-widest">{s.primaryTag}</span>
                  </div>
                  <div>
-                   <h3 className="text-lg font-black text-white tracking-tight">{s.name}</h3>
+                   <h3 className="text-lg font-black text-slate-900 dark:text-white tracking-tight">{s.name}</h3>
                    <p className="text-xs text-slate-500 mt-1 leading-relaxed line-clamp-2">{s.regulatory}</p>
                  </div>
-                 <button className="w-full py-3 bg-[#1a2a32] rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-primary border border-[#2d4552]">Manage Variants</button>
+                 <button className="w-full py-3 bg-slate-50 dark:bg-[#1a2a32] rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-primary border border-slate-100 dark:border-[#2d4552] transition-colors">Manage Variants</button>
               </div>
             ))}
           </div>
         )}
-
-        {/* Other tabs remain implemented similarly or with placeholder logic... */}
       </div>
 
-      {/* TEXT TEMPLATE EDITOR MODAL (REVAMPED TO MATCH SCREENSHOT) */}
+      {/* TEXT TEMPLATE EDITOR MODAL */}
       {editingTemplate && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-xl animate-in fade-in duration-300" onClick={() => setEditingTemplate(null)}></div>
-          <div className="relative bg-[#101c22] w-full max-w-6xl rounded-[32px] shadow-[0_0_120px_rgba(0,0,0,0.8)] border border-[#2d4552] flex flex-col max-h-[95vh] overflow-hidden animate-in zoom-in-95 duration-200">
+          <div className="absolute inset-0 bg-slate-950/60 dark:bg-slate-950/95 backdrop-blur-md dark:backdrop-blur-xl animate-in fade-in duration-300" onClick={() => setEditingTemplate(null)}></div>
+          <div className="relative bg-white dark:bg-[#101c22] w-full max-w-6xl rounded-[32px] shadow-2xl dark:shadow-[0_0_120px_rgba(0,0,0,0.8)] border border-slate-200 dark:border-[#2d4552] flex flex-col max-h-[95vh] overflow-hidden animate-in zoom-in-95 duration-200">
             
             {/* Modal Header */}
-            <div className="px-12 py-10 flex items-center justify-between">
+            <div className="px-12 py-10 flex items-center justify-between border-b border-slate-100 dark:border-transparent">
                <div className="flex flex-col">
                   <div className="flex items-center gap-3">
                     <span className="text-xl font-black text-primary uppercase tracking-[0.1em]">{editingTemplate.id}</span>
-                    <span className="text-slate-700 text-3xl font-thin">/</span>
-                    <h3 className="text-3xl font-black text-white tracking-tight">{editingTemplate.name}</h3>
+                    <span className="text-slate-300 dark:text-slate-700 text-3xl font-thin">/</span>
+                    <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{editingTemplate.name}</h3>
                   </div>
                   <span className="text-xs text-primary font-black uppercase tracking-[0.2em] mt-1.5 opacity-60">{editingTemplate.subType}</span>
                </div>
-               <button onClick={() => setEditingTemplate(null)} className="p-3 text-slate-500 hover:text-white transition-colors bg-[#1a2a32] rounded-full border border-[#2d4552] shadow-xl">
+               <button onClick={() => setEditingTemplate(null)} className="p-3 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors bg-slate-100 dark:bg-[#1a2a32] rounded-full border border-slate-200 dark:border-[#2d4552] shadow-sm">
                  <span className="material-symbols-outlined text-2xl">close</span>
                </button>
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="flex-1 overflow-y-auto px-12 pb-16 space-y-12 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto px-12 pb-16 space-y-12 custom-scrollbar py-8">
               
               {/* Reference Source */}
               <div className="space-y-4">
@@ -366,7 +363,7 @@ const Database: React.FC = () => {
                     type="text"
                     value={editingTemplate.referenceSource}
                     onChange={(e) => updateTemplateField('referenceSource', e.target.value)}
-                    className="w-full bg-[#16252d] border border-[#2d4552] rounded-xl px-6 py-4 text-sm font-bold text-primary focus:border-primary outline-none transition-all shadow-inner"
+                    className="w-full bg-slate-50 dark:bg-[#16252d] border border-slate-200 dark:border-[#2d4552] rounded-xl px-6 py-4 text-sm font-bold text-primary focus:border-primary outline-none transition-all shadow-inner"
                     placeholder="e.g. EN 71-1:2014+A1:2018"
                  />
               </div>
@@ -378,7 +375,7 @@ const Database: React.FC = () => {
                     <textarea 
                       value={editingTemplate.en}
                       onChange={(e) => updateTemplateField('en', e.target.value)}
-                      className="w-full bg-[#16252d] border border-[#2d4552] rounded-2xl p-8 text-xl font-medium text-white focus:ring-4 focus:ring-primary/10 outline-none min-h-[160px] shadow-[inset_0_2px_15px_rgba(0,0,0,0.4)] transition-all resize-none"
+                      className="w-full bg-slate-50 dark:bg-[#16252d] border border-slate-200 dark:border-[#2d4552] rounded-2xl p-8 text-xl font-medium text-slate-900 dark:text-white focus:ring-4 focus:ring-primary/10 outline-none min-h-[160px] shadow-inner transition-all resize-none"
                     />
                     <div className="absolute right-6 bottom-6 flex gap-2">
                        <span className="px-2 py-1 bg-primary/10 text-primary text-[10px] font-black rounded uppercase tracking-widest border border-primary/20">Master Source</span>
@@ -389,18 +386,18 @@ const Database: React.FC = () => {
               {/* Tags Section */}
               <div className="space-y-4">
                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Applicable Project Tags</label>
-                 <div className="flex flex-wrap items-center gap-4 p-8 bg-[#0d161b] rounded-2xl border border-[#2d4552] shadow-inner">
+                 <div className="flex flex-wrap items-center gap-4 p-8 bg-slate-50 dark:bg-[#0d161b] rounded-2xl border border-slate-200 dark:border-[#2d4552] shadow-inner">
                     {editingTemplate.tags.map(tag => (
-                      <div key={tag} className="bg-[#1a2a32] border border-[#2d4552] px-4 py-2.5 rounded-xl flex items-center gap-3 animate-in fade-in zoom-in duration-200">
-                        <span className="text-[11px] font-bold text-white uppercase tracking-wider">{tag}</span>
-                        <button onClick={() => removeTagFromTemplate(tag)} className="text-slate-500 hover:text-rose-500 transition-colors">
+                      <div key={tag} className="bg-white dark:bg-[#1a2a32] border border-slate-200 dark:border-[#2d4552] px-4 py-2.5 rounded-xl flex items-center gap-3 animate-in fade-in zoom-in duration-200 shadow-sm">
+                        <span className="text-[11px] font-bold text-slate-700 dark:text-white uppercase tracking-wider">{tag}</span>
+                        <button onClick={() => removeTagFromTemplate(tag)} className="text-slate-400 hover:text-rose-500 transition-colors">
                            <span className="material-symbols-outlined text-[16px]">close</span>
                         </button>
                       </div>
                     ))}
                     <div className="flex items-center gap-3">
                        <input 
-                         className="bg-[#1a2a32] border border-[#2d4552] text-[11px] font-black text-white px-5 py-2.5 rounded-xl uppercase tracking-widest outline-none focus:border-primary transition-all w-48 shadow-lg"
+                         className="bg-white dark:bg-[#1a2a32] border border-slate-200 dark:border-[#2d4552] text-[11px] font-black text-slate-900 dark:text-white px-5 py-2.5 rounded-xl uppercase tracking-widest outline-none focus:border-primary transition-all w-48 shadow-lg"
                          placeholder="ADD TAG..."
                          value={newTagInput}
                          onChange={(e) => setNewTagInput(e.target.value)}
@@ -420,7 +417,7 @@ const Database: React.FC = () => {
                     <div className="flex items-center gap-4">
                        <select 
                          onChange={(e) => addLanguageToTemplate(e.target.value)}
-                         className="bg-[#1a2a32] border border-[#2d4552] rounded-lg text-[10px] font-black text-primary px-4 py-1.5 uppercase outline-none"
+                         className="bg-white dark:bg-[#1a2a32] border border-slate-200 dark:border-[#2d4552] rounded-lg text-[10px] font-black text-primary px-4 py-1.5 uppercase outline-none cursor-pointer"
                          value=""
                        >
                          <option value="" disabled>+ Add Language Variant</option>
@@ -434,57 +431,51 @@ const Database: React.FC = () => {
                     {Object.entries(editingTemplate.translations).map(([langId, text]) => {
                       const lang = allLanguages.find(l => l.id === langId);
                       return (
-                        <div key={langId} className="bg-[#0d161b] rounded-2xl border border-[#2d4552] p-8 space-y-4 hover:border-slate-700 transition-all group">
+                        <div key={langId} className="bg-slate-50 dark:bg-[#0d161b] rounded-2xl border border-slate-200 dark:border-[#2d4552] p-8 space-y-4 hover:border-primary/50 dark:hover:border-slate-700 transition-all group">
                            <div className="flex items-center justify-between">
-                              <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] group-hover:text-primary transition-colors">{lang?.name} ({langId.toUpperCase()})</h4>
-                              <span className="material-symbols-outlined text-lg text-slate-700 group-hover:text-primary transition-all">translate</span>
+                              <h4 className="text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em] group-hover:text-primary transition-colors">{lang?.name} ({langId.toUpperCase()})</h4>
+                              <span className="material-symbols-outlined text-lg text-slate-300 dark:text-slate-700 group-hover:text-primary transition-all">translate</span>
                            </div>
                            <textarea 
                              value={text}
                              onChange={(e) => updateTranslation(langId, e.target.value)}
-                             className="w-full bg-[#16252d] border border-[#2d4552] rounded-xl p-4 text-[13px] font-medium text-slate-300 min-h-[120px] outline-none focus:border-primary/50 transition-all resize-none shadow-inner"
+                             className="w-full bg-white dark:bg-[#16252d] border border-slate-200 dark:border-[#2d4552] rounded-xl p-4 text-[13px] font-medium text-slate-700 dark:text-slate-300 min-h-[120px] outline-none focus:border-primary/50 transition-all resize-none shadow-inner"
                              placeholder="Pending Translation..."
                            />
                         </div>
                       );
                     })}
-                    {Object.keys(editingTemplate.translations).length === 0 && (
-                       <div className="lg:col-span-3 py-10 border-2 border-dashed border-[#2d4552] rounded-2xl flex flex-col items-center justify-center text-slate-600 gap-2 opacity-50">
-                          <span className="material-symbols-outlined text-4xl">public</span>
-                          <span className="text-xs font-black uppercase tracking-widest">No translations added yet</span>
-                       </div>
-                    )}
                  </div>
               </div>
 
               {/* Change History & Remarks */}
-              <div className="space-y-6 pt-10 border-t border-[#2d4552]">
+              <div className="space-y-6 pt-10 border-t border-slate-100 dark:border-[#2d4552]">
                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Change History & Audit Log</label>
-                 <div className="bg-[#0d161b] rounded-2xl border border-[#2d4552] p-8 space-y-6">
+                 <div className="bg-slate-50 dark:bg-[#0d161b] rounded-2xl border border-slate-200 dark:border-[#2d4552] p-8 space-y-6">
                     <div className="flex gap-4">
                        <input 
                           type="text"
                           placeholder="Add a remark about your changes..."
                           value={newRemarkInput}
                           onChange={(e) => setNewRemarkInput(e.target.value)}
-                          className="flex-1 bg-[#1a2a32] border border-[#2d4552] rounded-xl px-6 py-3 text-sm text-white focus:border-primary outline-none"
+                          className="flex-1 bg-white dark:bg-[#1a2a32] border border-slate-200 dark:border-[#2d4552] rounded-xl px-6 py-3 text-sm text-slate-900 dark:text-white outline-none focus:border-primary transition-all shadow-sm"
                        />
                        <button onClick={addHistoryRemark} className="px-8 py-3 bg-primary text-white text-[11px] font-black rounded-xl uppercase tracking-widest shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">
-                          Record Remark
+                          Record
                        </button>
                     </div>
                     <div className="space-y-4">
                        {editingTemplate.history.map((entry, idx) => (
-                         <div key={idx} className="flex gap-4 p-4 bg-[#1a2a32]/50 border border-[#2d4552] rounded-xl hover:bg-[#1a2a32] transition-colors">
-                            <div className="size-8 rounded-full bg-slate-800 flex items-center justify-center text-[10px] font-black text-primary border border-[#2d4552]">
+                         <div key={idx} className="flex gap-4 p-4 bg-white dark:bg-[#1a2a32]/50 border border-slate-100 dark:border-[#2d4552] rounded-xl shadow-sm">
+                            <div className="size-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] font-black text-primary border border-slate-200 dark:border-[#2d4552]">
                                {entry.user.split(' ').map(n => n[0]).join('')}
                             </div>
                             <div className="flex-1">
                                <div className="flex items-center justify-between mb-1">
-                                  <span className="text-[11px] font-black text-white">{entry.user}</span>
-                                  <span className="text-[10px] font-bold text-slate-600">{entry.date}</span>
+                                  <span className="text-[11px] font-black text-slate-800 dark:text-white">{entry.user}</span>
+                                  <span className="text-[10px] font-bold text-slate-400">{entry.date}</span>
                                </div>
-                               <p className="text-xs text-slate-400 leading-relaxed">{entry.remark}</p>
+                               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{entry.remark}</p>
                             </div>
                          </div>
                        ))}
@@ -495,9 +486,9 @@ const Database: React.FC = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="px-12 py-8 border-t border-[#2d4552] bg-[#0d161b]/80 flex justify-end gap-6">
-               <button onClick={() => setEditingTemplate(null)} className="px-10 py-3 text-xs font-black text-slate-500 uppercase tracking-[0.1em] hover:text-white transition-colors">Discard Draft</button>
-               <button onClick={() => setEditingTemplate(null)} className="px-14 py-4 bg-primary text-white text-xs font-black rounded-2xl shadow-2xl shadow-primary/20 hover:brightness-110 active:scale-95 transition-all uppercase tracking-[0.2em]">Publish Changes</button>
+            <div className="px-12 py-8 border-t border-slate-100 dark:border-[#2d4552] bg-slate-50/50 dark:bg-[#0d161b]/80 flex justify-end gap-6 items-center">
+               <button onClick={() => setEditingTemplate(null)} className="px-10 py-3 text-xs font-black text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors uppercase tracking-[0.1em]">Discard Draft</button>
+               <button onClick={() => setEditingTemplate(null)} className="px-14 py-4 bg-primary text-white text-xs font-black rounded-2xl shadow-2xl shadow-primary/30 hover:brightness-110 active:scale-95 transition-all uppercase tracking-[0.2em]">Publish Changes</button>
             </div>
           </div>
         </div>
@@ -506,65 +497,41 @@ const Database: React.FC = () => {
       {/* SYMBOL EDITOR MODAL */}
       {editingSymbol && (
         <div className="fixed inset-0 z-[160] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-950/95 backdrop-blur-xl animate-in fade-in duration-300" onClick={() => setEditingSymbol(null)}></div>
-          <div className="relative bg-[#111c22] w-full max-w-5xl rounded-3xl shadow-[0_0_120px_rgba(0,0,0,0.8)] border border-[#2d4552] flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-200">
-            {/* Symbol Editor Content as defined previously... */}
-            <div className="p-8 border-b border-[#2d4552] flex items-center justify-between">
-               <h3 className="text-xl font-black text-white">{editingSymbol.name} Specification</h3>
-               <button onClick={() => setEditingSymbol(null)} className="material-symbols-outlined text-slate-500 hover:text-white">close</button>
+          <div className="absolute inset-0 bg-slate-950/60 dark:bg-slate-950/95 backdrop-blur-md dark:backdrop-blur-xl animate-in fade-in duration-300" onClick={() => setEditingSymbol(null)}></div>
+          <div className="relative bg-white dark:bg-[#111c22] w-full max-w-5xl rounded-3xl shadow-2xl dark:shadow-[0_0_120px_rgba(0,0,0,0.8)] border border-slate-200 dark:border-[#2d4552] flex flex-col max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-8 border-b border-slate-100 dark:border-[#2d4552] flex items-center justify-between bg-slate-50/50 dark:bg-transparent">
+               <h3 className="text-xl font-black text-slate-900 dark:text-white">{editingSymbol.name} Specification</h3>
+               <button onClick={() => setEditingSymbol(null)} className="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"><span className="material-symbols-outlined">close</span></button>
             </div>
-            <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
-               {/* Left as simple for now to focus on text template updates */}
-               <div className="grid grid-cols-2 gap-10">
+            <div className="flex-1 overflow-y-auto p-10 custom-scrollbar py-8">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <div className="space-y-6">
-                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">SVG Upload</label>
-                    <div className="aspect-square bg-black rounded-xl border-4 border-dashed border-[#2d4552] flex flex-col items-center justify-center group hover:border-primary transition-all cursor-pointer" onClick={() => fileInputRef.current?.click()}>
+                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">SVG Artwork Source</label>
+                    <div className="aspect-square bg-slate-900 rounded-2xl border-4 border-dashed border-slate-200 dark:border-[#2d4552] flex flex-col items-center justify-center group hover:border-primary transition-all cursor-pointer shadow-inner" onClick={() => fileInputRef.current?.click()}>
                       {editingSymbol.vectorSvg ? <img src={editingSymbol.vectorSvg} className="w-1/2 h-1/2 object-contain" /> : <span className="material-symbols-outlined text-4xl text-slate-600">upload</span>}
                       <input type="file" ref={fileInputRef} className="hidden" accept=".svg" onChange={handleVectorUpload} />
+                      {!editingSymbol.vectorSvg && <p className="text-[10px] font-bold text-slate-500 mt-2 uppercase">Upload SVG</p>}
                     </div>
                   </div>
-                  <div className="space-y-6">
+                  <div className="space-y-8">
                     <section className="space-y-4">
-                       <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Dimension Type</label>
-                       <div className="flex gap-2 p-1 bg-[#0d161b] rounded-lg">
+                       <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Dimension Constraint Type</label>
+                       <div className="flex gap-2 p-1 bg-slate-100 dark:bg-[#0d161b] rounded-xl border border-slate-200 dark:border-transparent">
                           {['width', 'height', 'diameter'].map(t => (
-                            <button key={t} onClick={() => updateSymbolField('dimensionType', t as any)} className={`flex-1 py-2 rounded text-[10px] font-black uppercase transition-all ${editingSymbol.dimensionType === t ? 'bg-primary text-white' : 'text-slate-500 hover:text-white'}`}>{t}</button>
+                            <button key={t} onClick={() => updateSymbolField('dimensionType', t as any)} className={`flex-1 py-2.5 rounded-lg text-[10px] font-black uppercase transition-all ${editingSymbol.dimensionType === t ? 'bg-primary text-white shadow-lg' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}>{t}</button>
                           ))}
                        </div>
                     </section>
                     <section className="space-y-4">
-                       <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Regulatory Details</label>
-                       <textarea value={editingSymbol.regulatory} onChange={(e) => updateSymbolField('regulatory', e.target.value)} className="w-full bg-[#0d161b] border border-[#2d4552] rounded-xl p-4 text-xs text-slate-300" rows={4} />
+                       <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Regulatory Text / Standards Reference</label>
+                       <textarea value={editingSymbol.regulatory} onChange={(e) => updateSymbolField('regulatory', e.target.value)} className="w-full bg-slate-50 dark:bg-[#0d161b] border border-slate-200 dark:border-[#2d4552] rounded-2xl p-6 text-sm text-slate-700 dark:text-slate-300 outline-none focus:border-primary transition-all shadow-inner" rows={6} />
                     </section>
                   </div>
                </div>
             </div>
-            <div className="p-8 border-t border-[#2d4552] flex justify-end gap-4">
-               <button onClick={() => setEditingSymbol(null)} className="px-6 py-2 text-xs font-black text-slate-500 uppercase">Cancel</button>
-               <button onClick={() => setEditingSymbol(null)} className="px-10 py-3 bg-primary text-white text-xs font-black rounded-xl shadow-lg uppercase tracking-widest">Save Changes</button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Register Language Modal */}
-      {isAddingLanguage && (
-        <div className="fixed inset-0 z-[120] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setIsAddingLanguage(false)}></div>
-          <div className="relative bg-[#1a2a32] border border-[#2d4552] rounded-xl shadow-2xl p-8 max-w-md w-full animate-in zoom-in-95 duration-200">
-            <h3 className="text-lg font-black text-white mb-2 uppercase tracking-tight">Register New Language</h3>
-            <p className="text-sm text-slate-400 mb-6">Add a new regional language slot to the global database.</p>
-            <input 
-              autoFocus
-              value={newLangName}
-              onChange={(e) => setNewLangName(e.target.value)}
-              placeholder="e.g. Vietnamese"
-              className="w-full bg-[#111c22] border border-[#2d4552] rounded-lg p-4 text-white mb-6 outline-none focus:border-primary font-bold"
-              onKeyDown={(e) => e.key === 'Enter' && addNewLanguageToSystem()}
-            />
-            <div className="flex justify-end gap-4">
-              <button onClick={() => setIsAddingLanguage(false)} className="text-sm font-bold text-slate-500 hover:text-white uppercase tracking-widest">Cancel</button>
-              <button onClick={addNewLanguageToSystem} className="bg-primary text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest">Register</button>
+            <div className="p-8 border-t border-slate-100 dark:border-[#2d4552] flex justify-end gap-6 bg-slate-50/50 dark:bg-transparent">
+               <button onClick={() => setEditingSymbol(null)} className="px-8 py-3 text-xs font-black text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors uppercase">Cancel</button>
+               <button onClick={() => setEditingSymbol(null)} className="px-12 py-3 bg-primary text-white text-xs font-black rounded-xl shadow-xl shadow-primary/30 uppercase tracking-widest hover:brightness-110 transition-all">Save Changes</button>
             </div>
           </div>
         </div>
@@ -574,28 +541,10 @@ const Database: React.FC = () => {
 };
 
 const TabButton: React.FC<{ active: boolean; onClick: () => void; label: string; icon: string }> = ({ active, onClick, label, icon }) => (
-  <button onClick={onClick} className={`flex items-center gap-2 border-b-2 pb-3 pt-2 px-1 transition-all ${active ? 'border-primary text-primary' : 'border-transparent text-slate-500 hover:text-primary'}`}>
+  <button onClick={onClick} className={`flex items-center gap-2 border-b-2 pb-3 pt-2 px-1 transition-all ${active ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-primary'}`}>
     <span className="material-symbols-outlined text-lg">{icon}</span>
     <span className="text-xs font-black uppercase tracking-widest">{label}</span>
   </button>
-);
-
-const PresetEditor: React.FC<{ preset: RegionalPreset; allLanguages: Language[]; onToggleLang: (id: string) => void; onDelete: () => void }> = ({ preset, allLanguages, onToggleLang, onDelete }) => (
-  <div className="bg-[#111c22] border border-[#2d4552] rounded-2xl p-8 space-y-6 shadow-[0_4px_30px_rgba(0,0,0,0.3)] group">
-    <div className="flex items-center justify-between">
-      <h4 className="text-lg font-black text-white tracking-tight">{preset.name}</h4>
-      <div className="bg-[#1a2a32] px-3 py-1 rounded-md border border-[#2d4552] shadow-sm">
-        <span className="text-[10px] font-black text-white uppercase tracking-widest">{preset.languages.length} LANGUAGES</span>
-      </div>
-    </div>
-    <div className="flex flex-wrap gap-2.5">
-      {allLanguages.map(lang => (
-        <button key={lang.id} onClick={() => onToggleLang(lang.id)} className={`px-5 py-2.5 rounded-xl text-xs font-black transition-all border duration-200 ${preset.languages.includes(lang.id) ? 'bg-[#13a4ec] border-[#13a4ec] text-white' : 'bg-transparent border-[#2d4552] text-slate-500'}`}>
-          {lang.name}
-        </button>
-      ))}
-    </div>
-  </div>
 );
 
 export default Database;
