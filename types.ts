@@ -1,0 +1,74 @@
+
+export enum ProjectStatus {
+  ACTIVE = 'Active',
+  OVERDUE = 'Overdue',
+  PENDING = 'Pending',
+  DRAFT = 'Draft'
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  brand: string;
+  category: string;
+  status: ProjectStatus;
+  dueDate: string;
+  description?: string;
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  email: string;
+  avatar: string;
+}
+
+export interface ChangeEntry {
+  date: string;
+  user: string;
+  remark: string;
+}
+
+export interface WarningTemplate {
+  id: string;
+  name: string;
+  subType: string;
+  en: string;
+  translations: Record<string, string>; // languageId -> translatedText
+  status: 'APPROVED' | 'PENDING QA' | 'DRAFT';
+  category: string;
+  tags: string[];
+  linkedSymbolIds?: string[];
+  referenceSource: string;
+  history: ChangeEntry[];
+}
+
+export interface SymbolConstraint {
+  id: string;
+  name: string;
+  minWidth?: number;
+  minHeight?: number;
+  minDiameter?: number;
+  dimensionType: 'width' | 'height' | 'diameter';
+  aspectRatio: string;
+  regulatory: string;
+  icon: string;
+  tags: string[];
+  primaryTag: string; // The one displayed in the top right (e.g. EU MANDATORY)
+  symbolColor: string;
+  bgColor: string;
+  vectorSvg?: string;
+}
+
+export interface Language {
+  id: string;
+  name: string;
+  region: string;
+}
+
+export interface RegionalPreset {
+  id: string;
+  name: string;
+  languages: string[]; // Language IDs
+  type: 'Market' | 'Customer';
+}
